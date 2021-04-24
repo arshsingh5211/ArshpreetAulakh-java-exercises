@@ -21,23 +21,23 @@ import java.util.Scanner;
 public class LinearConvert {
 
 	public static void main(String[] args) {
-	
-		System.out.println("Please enter the length.");
-
-		Scanner userInput = new Scanner(System.in);
-		String line = userInput.nextLine();
-		int length = Integer.parseInt(line);
-		
-		System.out.println("Is the measurement in (m)eter or (f)eet?");
-		line = userInput.nextLine();
-			if (line.equals("m") || line.equals("M")) {
-				int lengthF = (int) (length * 3.2808399);
-				System.out.println(length + "m is " + lengthF + "f.");
+		Scanner console = new Scanner (System.in);
+		boolean run = true;
+		while (run) {
+			System.out.print("Please enter the length: ");
+			int len = console.nextInt();
+			System.out.print("Is the measurement in (m)eter, or (f)eet? ");
+			String unit = console.next();
+			if (unit.equalsIgnoreCase("m") || unit.equalsIgnoreCase("meter") || unit.equalsIgnoreCase("meters")) {
+				System.out.println(len + "m is " + (int)(len * 3.2808399) + "f.");
+				run = false;
 			}
-			else if (line.equals("f") || line.equals("F")) {
-				int lengthM = (int) (length * 0.3048);
-				System.out.println(length + "f is " + lengthM + "f.");
+			else if (unit.equalsIgnoreCase("f") || unit.equalsIgnoreCase("foot") || unit.equalsIgnoreCase("feet")) {
+				System.out.println(len + "f is " + (int)(len * 0.3048) + "m.");
+				run = false;
 			}
-			else System.out.println(line + " is an invalid choice. Please start over and try again.");
+			else System.out.println("Sorry, that is not a valid answer! Please enter (m)eters or (f)eet!\n");
+		}
 	}
+
 }

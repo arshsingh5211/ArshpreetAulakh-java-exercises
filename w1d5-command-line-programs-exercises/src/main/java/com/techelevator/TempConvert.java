@@ -24,23 +24,23 @@ import java.util.Scanner;
 public class TempConvert {
 
 	public static void main(String[] args) {
-		
-		Scanner input = new Scanner (System.in);
-		
-		System.out.println("Please enter the temperature.");
-		String userInput = input.nextLine();
-		int temp = Integer.parseInt(userInput);
-		
-		System.out.println("Is the temperature in (C)elcius or (F)arenheit");
-		userInput = input.nextLine();
-			if (userInput.equals("F") || userInput.equals("f")) {
-				int tempC = (int)((temp - 32) / 1.8);
-				System.out.println(temp + "F is " + tempC + "C.");	
-			} 
-			else if (userInput.equals("C") || userInput.equals("c")) {
-				int tempF = (int)(temp * 1.8 + 32);
-				System.out.println(temp + "C is " + tempF + "F.");
-			} else System.out.println(userInput + " is an invalid choice. Please enter 'C' or 'F' only.");
-		
+		Scanner console = new Scanner(System.in);
+		boolean run = true;
+		while (run) {
+			System.out.print("Please enter the temperature: ");
+			int temp = console.nextInt();
+			System.out.print("Is the temperature in (C)elcius, or (F)arenheit? ");
+			String unit = console.next();
+			if (unit.equalsIgnoreCase("c") || unit.equalsIgnoreCase("celcius")) {
+				System.out.print(temp + "C is " + (int)(temp * 1.8 + 32) + "F.");
+				run = false;
+			}
+			else if (unit.equalsIgnoreCase("f") || unit.equalsIgnoreCase("farenheit")) {
+				System.out.print(temp + "F is " + (int)((temp - 32) / 1.8) + "C.");
+				run = false;
+			}
+			else System.out.println("Sorry, that is not a valid answer! Please enter (m)eters or (f)eet!\n");
+		}
 	}
+
 }

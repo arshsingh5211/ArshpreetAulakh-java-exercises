@@ -1,6 +1,8 @@
 package com.techelevator;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
 
 /*
 Write a command line program which prompts the user for a series of decimal integer values  
@@ -19,34 +21,27 @@ Please enter in a series of decimal values (separated by spaces): 460 8218 1 313
 public class DecimalToBinary {
 
 	public static void main(String[] args) {
-
-		Scanner userInput = new Scanner(System.in);		
-		System.out.print("Please enter in a series of decimal values (separated by spaces): ");
 		
-		String line = userInput.nextLine();
-		String[] decimals = line.split(" ");
-		
-		for (int i = 0;  i < decimals.length ; i++) {
-			int inputNumber = Integer.parseInt(decimals[i]);
-			System.out.print(inputNumber + " in binary is ");
-			decimalToBinary(inputNumber);
-			System.out.println(" ");
-		}				     										
-	}	
-	
-	
-	public static void decimalToBinary(int inputNumber){
-		
-		int binaryNumber[] = new int[100];
-		int index = 0;
-		
-		while (inputNumber > 0){
-			
-			binaryNumber[index++] = inputNumber % 2 ;
-			inputNumber /= 2;						
+		Scanner console = new Scanner (System.in);
+		System.out.println("Plese enter in a series of decimal values (separated by spaces): ");
+		while (console.hasNextInt()) {
+			int number = console.nextInt();
+			System.out.println(number + " in binary is " + decimalToBinary(number));
 		}
-		for (int i = index-1; i >= 0; i--){
-		       System.out.print(binaryNumber[i]);
-		}		
+
 	}
+	
+	static String decimalToBinary (int num) {
+		Stack<Integer> myStack = new Stack<>();
+		StringBuilder sb = new StringBuilder();
+		while (num > 0) {
+			myStack.push(num % 2);
+			num /= 2;
+		}
+		for (Integer item: myStack) {
+			sb.append(item);
+		}
+			return sb.reverse().toString();
+	}
+
 }

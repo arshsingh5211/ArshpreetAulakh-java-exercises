@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -19,25 +21,32 @@ Please enter the Fibonacci number: 25
 public class Fibonacci {
 
 	public static void main(String[] args) {
-		System.out.println("Please enter a value: ");
-		Scanner userInput = new Scanner (System.in);
 		
-		int n = userInput.nextInt();
+		Scanner console = new Scanner (System.in);
+		System.out.print("Please enter the Fibonacci number: ");
+		int end = console.nextInt();
+		List <Integer> list = getList();
+		while (end > getNextInt(list, end)) {
+			getNextInt(list, end);
+		}
+		System.out.println(list.toString().replace("[", "").replace("]", ""));
 		
-	    if(n >= 0) {
-	        System.out.println("The Fibonacci numbers less than " + n + " are: ");
-	        System.out.print("0, 1, ");
-	        
-	        int f2 = 1;
-	        int fibonacci = 0;
-	        for (int i = 0; i + f2 < n;){
-	            fibonacci = i + f2;
-	            i = f2;
-	            f2 = fibonacci;
-	            System.out.print(fibonacci + ", ");
-	        }
-	    } else {
-	        System.out.println("There are no numbers less than " + n + " in the series");
-	    }
+
 	}
+	
+	static int getNextInt (List<Integer>list, int endInt) {
+		int next = list.get(list.size()-1) + list.get(list.size()-2);
+		if (next < endInt) {
+			list.add(next);
+		}
+		return next;
+	}
+	
+	static List<Integer> getList() {
+		List<Integer> fibList = new ArrayList<>();
+		fibList.add(0);
+		fibList.add(1);
+		return fibList;
+	}
+
 }
