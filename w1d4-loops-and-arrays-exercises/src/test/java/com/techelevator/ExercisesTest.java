@@ -109,9 +109,6 @@ public class ExercisesTest {
 		assertEquals("Input: sum2(new int[]{1, 2, 3})", 3, exercises.sum2(new int[]{1, 2, 3}));
 		assertEquals("Input: sum2(new int[]{1, 1})", 2, exercises.sum2(new int[]{1, 1}));
 		assertEquals("Input: sum2(new int[]{1, 1, 1, 1})", 2, exercises.sum2(new int[]{1, 1, 1, 1}));
-		assertEquals("Input: sum2(new int[]{1})", 1, exercises.sum2(new int[]{1}));
-		assertEquals("Input: sum2(new int[]{})", 0, exercises.sum2(new int[]{}));
-
 	}
 
 	/*
