@@ -25,27 +25,18 @@ public class Fibonacci {
 		Scanner console = new Scanner (System.in);
 		System.out.print("Please enter the Fibonacci number: ");
 		int end = console.nextInt();
-		List <Integer> list = getList();
-		while (end > getNextInt(list, end)) {
-			getNextInt(list, end);
-		}
-		System.out.println(list.toString().replace("[", "").replace("]", ""));
-		
-
+		System.out.println(getList(end).toString().replace("[", "").replace("]", ""));
 	}
 	
-	static int getNextInt (List<Integer>list, int endInt) {
-		int next = list.get(list.size()-1) + list.get(list.size()-2);
-		if (next < endInt) {
-			list.add(next);
-		}
-		return next;
-	}
-	
-	static List<Integer> getList() {
+	static List<Integer> getList(int endInt) {
 		List<Integer> fibList = new ArrayList<>();
 		fibList.add(0);
 		fibList.add(1);
+		int next = fibList.get(fibList.size()-1) + fibList.get(fibList.size()-2);
+		while (next < endInt) {
+			fibList.add(next);
+			next = fibList.get(fibList.size()-1) + fibList.get(fibList.size()-2);
+		}
 		return fibList;
 	}
 
