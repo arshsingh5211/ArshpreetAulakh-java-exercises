@@ -162,10 +162,11 @@ public class ExercisesTest {
 	 */
 	@Test
 	public void in1020() {
-		assertEquals("Input: in1020(12, 99)", true, exercises.in1020(12, 99));
-		assertEquals("Input: in1020(21, 12)", true, exercises.in1020(21, 12));
-		assertEquals("Input: in1020(8, 99)", false, exercises.in1020(8, 99));
-		assertEquals("Input: in1020(11, 19)", true, exercises.in1020(11, 19));
+		assertEquals("Input: in1020(12, 99)", true, exercises.in1020(12, 99)); // true, false
+		assertEquals("Input: in1020(21, 12)", true, exercises.in1020(21, 12)); // false, true;
+		assertEquals("Input: in1020(8, 99)", false, exercises.in1020(8, 99)); // false, false;
+		assertEquals("Input: in1020(11, 19)", true, exercises.in1020(11, 19)); // true, true;
+		assertEquals("Input: in1020(0, 0)", false, exercises.in1020(0, 0)); // true, true; // added to cover all branches
 	}
 
 	/*
@@ -233,6 +234,7 @@ public class ExercisesTest {
 		assertEquals("Input: in3050(20, 21)", false, exercises.in3050(20, 21));
 		assertEquals("Input: in3050(30, 5)", false, exercises.in3050(30, 5));
 		assertEquals("Input: in3050(40, 75)", false, exercises.in3050(40, 75));
+		assertEquals("Input: in3050(39, 49)", false, exercises.in3050(0, 0));
 	}
 
 	/*
@@ -302,6 +304,7 @@ public class ExercisesTest {
 		assertEquals("Input: squirrelPlay(100, true)", true, exercises.squirrelPlay(100, true));
 		assertEquals("Input: squirrelPlay(101, true)", false, exercises.squirrelPlay(101, true));
 		assertEquals("Input: squirrelPlay(101, false)", false, exercises.squirrelPlay(101, false));
+		assertEquals("Input: squirrelPlay(0, false)", false, exercises.squirrelPlay(0, false)); // added to cover all branches
 	}
 
 	/*
@@ -390,9 +393,9 @@ public class ExercisesTest {
 	 */
 	@Test
 	public void specialEleven() {
-		assertEquals("Input: specialEleven(22)", true, exercises.specialEleven(22));
+		assertEquals("Input: specialEleven(-22)", true, exercises.specialEleven(22));
 		assertEquals("Input: specialEleven(23)", true, exercises.specialEleven(23));
-		assertEquals("Input: specialEleven(24)", false, exercises.specialEleven(24));
+		assertEquals("Input: specialEleven(24)", false, exercises.specialEleven(-24));
 		assertEquals("Input: specialEleven(11)", true, exercises.specialEleven(11));
 		assertEquals("Input: specialEleven(12)", true, exercises.specialEleven(12));
 		assertEquals("Input: specialEleven(13)", false, exercises.specialEleven(13));
@@ -560,6 +563,7 @@ public class ExercisesTest {
 		assertEquals("Input: inOrderEqual(5, 5, 5, true)", true, exercises.inOrderEqual(5, 5, 5, true));
 		assertEquals("Input: inOrderEqual(1, 5, 5, true)", true, exercises.inOrderEqual(1, 5, 5, true));
 		assertEquals("Input: inOrderEqual(6, 5, 5, true)", false, exercises.inOrderEqual(6, 5, 5, true));
+		assertEquals("Input: inOrderEqual(0, 0, 0, false)", false, exercises.inOrderEqual(0, 0, 0, false)); // added to cover all branches
 	}
 
 

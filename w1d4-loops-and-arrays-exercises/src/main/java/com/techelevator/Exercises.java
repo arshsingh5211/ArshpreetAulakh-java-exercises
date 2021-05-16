@@ -55,11 +55,13 @@ public class Exercises {
 	 */
 	public int sum3(int[] nums) {
 		int sum = 0;
-		for (int i = 0; i < nums.length; i++) {
-			sum += nums[i];
+		for (int num : nums) {
+			sum += num;
 		}
 			return sum;
 	}
+	
+	// could just do nums[0] + nums[1] + nums[2] but this way it is able to handle different sized arrays
 
 	/*
 	 6. Given an array of ints length 3, return an array with the elements "rotated left" so {1, 2, 3} 
@@ -76,6 +78,8 @@ public class Exercises {
 		}
 			return arr;
 	}
+	
+	// once again just trying to handle arrays of any size instead of just size 3
 
 	/*
 	 7. Given an array of ints length 3, return a new array with the elements in reverse order, so 
@@ -101,16 +105,11 @@ public class Exercises {
 	 maxEnd3([2, 11, 3]) → [3, 3, 3]
 	 */
 	public int[] maxEnd3(int[] nums) {
-		int largest = 0;
-		int[] arr = new int[nums.length];
-		if (nums[0] > nums[nums.length-1]) {
-			largest = nums[0];
+		int largest = Math.max(nums[0], nums[nums.length-1]);
+		for (int i = 0; i < nums.length; i++) {
+			nums[i] = largest;
 		}
-		else largest = nums[nums.length-1];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = largest;
-		}
-				return arr;
+			return nums;
 	}
  
 	/*
@@ -129,51 +128,18 @@ public class Exercises {
 
 	/*
 	 10. Given 2 int arrays, a and b, each length 3, return a new array length 2 containing their middle 
-	 elements.
+	 elements. (I wanted to return middle element regardless of array length)
 	 middleWay([1, 2, 3], [4, 5, 6]) → [2, 5]
 	 middleWay([7, 7, 7], [3, 8, 0]) → [7, 8]
 	 middleWay([5, 2, 9], [1, 4, 5]) → [2, 4]
 	 */
 	
 	public int[] middleWay(int[] a, int[] b) {
-		List <int[]> listArr = new LinkedList<int[]>();
-    	listArr.add(a);
-    	listArr.add(b);
-    	
-    	int[] midArr = new int[listArr.size()];
-    	for (int i = 0; i < listArr.size(); i++) {
-    		midArr[i] = getMiddleNumber(listArr.get(i));
-    	}
-    	return midArr;
-    }
-    
-    public int getMiddleNumber (int[] arr) {
-		if (arr.length % 2 == 0) {
-			int mid1 = (arr.length-1)/2;
-			int mid2 = arr.length/2;
-			return (arr[mid1] + arr[mid2])/2;
-		} 
-		else {
-			int mid = arr.length/2;
-			return arr[mid];
-		}
+		return new int[] {a[1], b[1]};
     }
 	
-	
-	
-	/*public int[] middleWay(int[] a, int[] b) {
-		if (a.length % 2 == 0) {
-			int mid1 = (a.length-1)/2;
-			int mid2 = a.length/2;
-			return new int[] {a[mid1], a[mid2], b[mid1], b[mid2]};
-		} 
-		else {
-			int mid = a.length/2;
-			return new int[] {a[mid], b[mid]};
-		}
-	}*/
-
-    
+    // I also wanted to figure out a way to return a middle array for any variable length and any amount of arrays 
+    // (see middlewayclass)
     
 	/*
 	 11. Return the number of even ints in the given array. Note: the % "mod" operator computes the 
