@@ -1,11 +1,9 @@
 package com.techelevator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -23,8 +21,12 @@ public class Exercises {
 	 array2List( {"Left", "Right", "Forward", "Back"} )  ->  ["Left", "Right", "Forward", "Back"] 
 	 */
 	public List<String> array2List(String[] stringArray) {
-		return Arrays.asList(stringArray);
+		List<String> stringList = new ArrayList<>();
+		for (String item: stringArray) stringList.add(item);
+		return stringList;
 	}
+	
+	// normally I would just do Arrays.asList(stringArray) but doing it manually is good practice
 	
 	/*
 	 Given a list of Strings, return an array containing the same Strings in the same order 
@@ -39,7 +41,6 @@ public class Exercises {
 		}
 			return arr;
 	}
-	
 	/*
 	 Given an array of Strings, return an ArrayList containing the same Strings in the same order 
 	 except for any words that contain exactly 4 characters.
@@ -50,9 +51,7 @@ public class Exercises {
 	public List<String> no4LetterWords(String[] stringArray) {
 		List<String> list = new ArrayList<>();
 		for (int i = 0; i < stringArray.length; i++) {
-			if (stringArray[i].length() != 4) {
-				list.add(stringArray[i]);
-			}
+			if (stringArray[i].length() != 4) list.add(stringArray[i]);
 		}
 				return list;
 	}
@@ -108,6 +107,8 @@ public class Exercises {
 				return largest;
 	}
 	
+	// Collections.max(integerList) would work as well
+	
 	/*
 	 Given an array of Integers, return a List of Integers containing just the odd values.
 	 oddOnly( {112, 201, 774, 92, 9, 83, 41872} ) -> [201, 9, 83]
@@ -116,9 +117,9 @@ public class Exercises {
 	 */
 	public List<Integer> oddOnly(Integer[] integerArray) {
 		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < integerArray.length; i++) {
-			if (integerArray[i] % 2 != 0) {
-				list.add(integerArray[i]);
+		for (int num: integerArray) {
+			if (num % 2 != 0) {
+				list.add(num);
 			}
 		}
 				return list;
@@ -141,6 +142,8 @@ public class Exercises {
 				return count > 1;
 	}
 	
+	// or Collections.frequency(integerList, intToFind) > 1;
+	
 	/*
 	 Given an array of Integers, return a List that contains the same Integers (as Strings). Except any multiple of 3
     should be replaced by the String "Fizz", any multiple of 5 should be replaced by the String "Buzz",
@@ -155,33 +158,27 @@ public class Exercises {
 	 */
 	public List<String> fizzBuzzList(Integer[] integerArray) {
 		List<String> list = new ArrayList<>();
-		for (Integer i: integerArray) {
-			if (i % 3 == 0 && i % 5 == 0) {
-				list.add("FizzBuzz");
-			}
-			else if (i % 3 == 0) {
-				list.add("Fizz");
-			}
-			else if (i % 5 == 0) {
-				list.add("Buzz");
-			}
-			else list.add(i.toString());
+		for (Integer num: integerArray) {
+			if (num % 5 == 0 && num % 3 == 0) list.add("FizzBuzz");
+			else if (num % 5 == 0) list.add("Buzz");
+			else if (num % 3 == 0) list.add("Fizz");
+			else list.add(num.toString());
 		}
-				return list;
+			return list;
 	}
 
 	/*
 	 Given a list of Strings, return a list that contains the distinct values. In other words, no value is to be
-	 included more than once in the returned list. (Hint: Think Set)
+	 included more than once in the returned list.
 	 distinctValues( ["red", "yellow", "green", "yellow", "blue", "green", "purple"] ) -> ["red", "yellow", "green", "blue", "purple"]
 	 distinctValues( ["jingle", "bells", "jingle", "bells", "jingle", "all", "the", "way"] ) -> ["jingle", "bells", "all", "the", "way"]
 	 */
 	public List<String> distinctValues(List<String> stringList) {
 		Set<String> set = new HashSet<>();
-		List<String> list = new ArrayList<>();
 		set.addAll(stringList);
+		List<String> list = new ArrayList<String>();
 		list.addAll(set);
-			return list;
+		return list;
 	}
 
 	/*
@@ -192,18 +189,17 @@ public class Exercises {
 	 interleaveLists( [7, 1, 3], [2, 5, 7, 9] )  ->  [7, 2, 1, 5, 3, 7, 9]
 	 */
 	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo) {
-		List <Integer> list = new ArrayList<>();
-		int min = Math.min(listOne.size(), listTwo.size()); //3
-		for (int i = 0; i < min; i++) {
+		int len = Math.min(listOne.size(), listTwo.size());
+		List<Integer> list = new ArrayList<>();
+		for (int i = 0; i < len; i++) {
 			list.add(listOne.get(i));
 			list.add(listTwo.get(i));
 		}
-		
 		if (listOne.size() > listTwo.size()) {
-			list.addAll(listOne.subList(min, listOne.size()));
+			list.addAll(listOne.subList(len, listOne.size()));
 		}
 		if (listTwo.size() > listOne.size()) {
-			list.addAll(listTwo.subList(min, listTwo.size()));
+			list.addAll(listTwo.subList(len, listTwo.size()));
 		}
 			return list;
 	}
@@ -212,35 +208,28 @@ public class Exercises {
 	 Given a list of Integers representing seat numbers, group them into ranges 1-10, 11-20, and 21-30.
 	 (Any seat number less than 1, or greater than 30 is invalid, and can be ignored.) Preserve the order
 	 in which the seat number entered their associated group. Return a list of the grouped Integers 1-10,
-	 11-20, and 21-30. (Hint: Think multiple queues)
+	 11-20, and 21-30.
 	 boardingGate( [1, 13, 43, 22, 8, 11, 30, 2, 4, 14, 21] ) -> [1, 8, 2, 4, 13, 11, 14, 22, 30, 21]
 	 boardingGate( [29, 19, 9, 21, 11, 1, 0, 25, 15, 5, 31] ) -> [9, 1, 5, 19, 11, 15, 29, 21, 25]
 	 boardingGate( [0, -1, 44, 31, 17, 7, 27, 16, 26, 6] ) -> [7, 6, 17, 16, 27, 26]
 	 */
 	public List<Integer> boardingGate(List<Integer> seatNumberList) {
-		List<Integer> list = new ArrayList<>();
-		Queue<Integer>firstClass = new LinkedList<>();
-		Queue<Integer>secondClass = new LinkedList<>();
-		Queue<Integer>thirdClass = new LinkedList<>();
+		Queue<Integer> firstClass = new LinkedList<>(); // 1-10
+		Queue<Integer> secondClass = new LinkedList<>(); // 11-20
+		Queue<Integer> thirdClass = new LinkedList<>(); // 21-30
 		
-		for (Integer i: seatNumberList) {
-			if (i >= 1 && i <= 10) {
-				firstClass.add(i);
-			}
-			if (i >= 11 && i <= 20) {
-				secondClass.add(i);
-			}
-			if (i >= 21 && i <= 30) {
-				thirdClass.add(i);
-			}
+		for (Integer seat: seatNumberList) {
+			if (seat > 0 && seat < 11) firstClass.add(seat);
+			else if (seat > 10 && seat < 21) secondClass.add(seat);
+			else if (seat > 20 && seat < 31) thirdClass.add(seat);
 		}
 		
-		list.addAll(firstClass);
-		list.addAll(secondClass);
-		list.addAll(thirdClass);
+		List<Integer> finalList = new ArrayList<>();
+		finalList.addAll(firstClass);
+		finalList.addAll(secondClass);
+		finalList.addAll(thirdClass);
 		
-		
-		return list;
+		return finalList;
 	}
 
 }

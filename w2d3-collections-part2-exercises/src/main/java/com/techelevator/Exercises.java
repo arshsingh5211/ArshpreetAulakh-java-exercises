@@ -190,15 +190,11 @@ public class Exercises {
 	 */
 	public Map<Integer, Integer> integerCount(int[] ints) {
 		Map<Integer, Integer> map = new HashMap<>();
-		for (Integer i: ints) {
-			if (!map.containsKey(i)) {
-				map.put(i, 1);
-			}
-			else {
-				map.put(i, map.get(i) + 1);
-			}
+		for (int num: ints) {
+			if (!map.containsKey(num)) map.put(num, 1);
+			else map.put(num, map.get(num) + 1);
 		}
-				return map;
+			return map;
 	}
 	
 	/*
@@ -212,13 +208,12 @@ public class Exercises {
 	 */
 	public Map<String, Boolean> wordMultiple(String[] words) {
 		Map<String, Boolean> map = new HashMap<>();
-		for (String item: words) {
-			if (!map.containsKey(item)) {
-				map.put(item, false);
-			}
-			else map.put(item, true);
+		for (String word : words) {
+			if (map.containsKey(word)) map.put(word, true); // don't need to track actual frequency so this is easier
+			else map.put(word, false);
 		}
-			return map;
+		
+		return map;
 	}
 	
 	/*
@@ -232,17 +227,27 @@ public class Exercises {
 	 * 
 	 */
 	public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse, Map<String, Integer> remoteWarehouse) {
-		
 		for (String item: remoteWarehouse.keySet()) {
-			Integer value = remoteWarehouse.get(item);
-			if (mainWarehouse.containsKey(item)) {
-				mainWarehouse.put(item, mainWarehouse.get(item) + value);
-			}
-			else mainWarehouse.put(item, value);
+			if (mainWarehouse.containsKey(item)) mainWarehouse.put(item, mainWarehouse.get(item) + remoteWarehouse.get(item));
+			else mainWarehouse.put(item, remoteWarehouse.get(item));
 		}
 			return mainWarehouse;
 	}
-
+	
+	// first used entrySet but realized I don't need to iterate through values
+	
+	/*
+	 public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse, Map<String, Integer> remoteWarehouse) {
+		for (Map.Entry<String, Integer> entry: remoteWarehouse.entrySet()) {
+			if (mainWarehouse.containsKey(entry.getKey())) {
+				mainWarehouse.put(entry.getKey(), mainWarehouse.get(entry.getKey()) + entry.getValue());
+			}
+			else mainWarehouse.put(entry.getKey(), entry.getValue());		
+		}
+			return mainWarehouse;
+	}
+	 */
+	
 	/*
 	 * Just when you thought it was safe to get back in the water --- last2Revisited!!!!
 	 * 
@@ -262,14 +267,14 @@ public class Exercises {
 		Map<String, Integer> map = new HashMap<>();
 		for (String item: words) {
 			int count = 0;
-			String str = item.substring(item.length()-2);
+			String last2 = item.substring(item.length()-2);
 			for (int i = 0; i < item.length()-2; i++) {
-				if (item.substring(i, i+2).equals(str)) {
-					count = count + 1;
-				}
+				if (item.substring(i, i + 2).equals(last2)) count++;
 			}
-					map.put(item, count);
+			map.put(item, count);
 		}
-					return map;
+			return map;
 	}
+	
+	// is there a way to do this with linear complexity
 }
