@@ -68,13 +68,9 @@ public class Exercises {
 	public List<String> reverseList(List<String> stringList) {
 		List<String> list = new ArrayList<>();
 		Stack<String> stack = new Stack<>();
-		for (String item: stringList) {
-			stack.push(item);
-		}
-		while (!stack.isEmpty()) {
-			list.add(stack.pop());
-		}
-			return list;
+		stack.addAll(stringList);		// ia thia better than for-each to push to stack or is it the same thing (implicitly)
+		while (!stack.isEmpty()) list.add(stack.pop());
+		return list;
 	}
 
 	/*
