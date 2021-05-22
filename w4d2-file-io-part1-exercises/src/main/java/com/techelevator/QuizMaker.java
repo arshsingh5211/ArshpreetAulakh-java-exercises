@@ -55,8 +55,7 @@ public class QuizMaker {
 		}
 	}
 	
-	public static void askAQuestion (File file, Question quizQuestion) {
-		try (Scanner quiz = new Scanner(file)) {
+	public static void askAQuestion (Question quizQuestion) {
 			Scanner userAnswers = new Scanner (System.in);
 			String[] quizArr = quizQuestion.getQuizChoices();
 			int choiceNum = 1;
@@ -76,20 +75,15 @@ public class QuizMaker {
 				}
 				else System.out.println("Sorry, that is incorrect! Please try again.");
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static void runQuiz (File file) {
 		try (Scanner quizInput = new Scanner (file)) {
-			String line;
 			while (quizInput.hasNextLine()) {
-				line = quizInput.nextLine();
+				String line = quizInput.nextLine();
 				System.out.println("First line: " + line);
 				Question quizQuestion = new Question (file, getLineAsList(file, line));
-				askAQuestion(file, quizQuestion);
-				line = quizInput.nextLine();
+				askAQuestion(quizQuestion);
 				System.out.println("This line: " + line);
 			}
 		} catch (FileNotFoundException e) {
