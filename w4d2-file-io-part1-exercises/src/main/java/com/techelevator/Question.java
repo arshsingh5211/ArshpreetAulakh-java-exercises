@@ -1,11 +1,7 @@
 package com.techelevator;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Question {
 	private File quizFile;
@@ -15,18 +11,6 @@ public class Question {
 		this.quizFile = file;
 		this.lineAsList = line;
 	}
-	
-	/*public List<String> getQuizLine() {
-		try (Scanner quiz = new Scanner (quizFile)) {
-			List<String> questionList = new LinkedList<>();
-			questionList.addAll(Arrays.asList(lineInFile.split("\\|")));
-			return questionList;
-		} 
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null; // idk how to return something in a catch block if i don't want to return a list (if it cant find file)
-	}*/
 	
 	public String getQuizQuestion () {
 		return lineAsList.get(0);
@@ -46,17 +30,6 @@ public class Question {
 		}
 			return "None!";
 	}
-	
-	/*public String getCorrectAnswer() {
-		String[] arr = getQuizChoices();
-		//String correctAns = "jhkjh";
-		for (String choice : arr) {
-			if (choice.contains("*")) {
-				return choice;
-			}
-		}
-		return "No correct answer??";
-	}*/
 
 	public File getQuizFile() {
 		return quizFile;
@@ -67,6 +40,3 @@ public class Question {
 	}
 
 }
-
-
-//Create a class that can hold a quiz question, its available answers, and the correct answer.

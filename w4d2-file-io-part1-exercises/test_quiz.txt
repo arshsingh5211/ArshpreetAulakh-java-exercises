@@ -1,2 +1,7 @@
 What color is the sky?|yellow|blue*|green|red
 A skeleton walks into a bar, and says to the bartender, "Give me a beer and a ..."|hair brush|dry erase marker|mop*|yo-yo
+What is the best movie of all-time?|any stupid marvel movie|Batman v Superman: Dawn of Justice (UE)*|some pretentious oscar bait|any other movie besides BvS
+What professional basketball team resides in Detroit?|sixers|browns|pistons*|tigers
+Which of the following actors were NOT in 2021's Zack Snyder's Justice League?|Margot Robbie*|Gal Gadot|Amber Heard|Ben Affleck
+Which of the following programming languages are NOT object-oriented?|C*|C++|Java|Python
+Which of the following data types is a primitive?|String|Character|Boolean*|Array
