@@ -42,11 +42,7 @@ public class QuizMaker {
 	public static List<String> getLineAsList (File quizFile, String line) {
 		List<String> list = new ArrayList<>();
 		try (Scanner quiz = new Scanner (quizFile)) {
-			line = "";
-			if (quiz.hasNextLine()) {
-				line = quiz.nextLine();
-				list = Arrays.asList(line.split("\\|"));
-			}
+			list = Arrays.asList(line.split("\\|"));
 			return list;
 		} 
 		catch (FileNotFoundException e) {
@@ -79,12 +75,12 @@ public class QuizMaker {
 	
 	public static void runQuiz (File file) {
 		try (Scanner quizInput = new Scanner (file)) {
+			Question quizQuestion;
 			while (quizInput.hasNextLine()) {
 				String line = quizInput.nextLine();
 				System.out.println("First line: " + line);
-				Question quizQuestion = new Question (file, getLineAsList(file, line));
+				quizQuestion = new Question (file, getLineAsList(file, line));
 				askAQuestion(quizQuestion);
-				System.out.println("This line: " + line);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
