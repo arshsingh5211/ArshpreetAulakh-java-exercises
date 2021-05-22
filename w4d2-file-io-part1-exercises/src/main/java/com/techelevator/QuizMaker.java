@@ -42,7 +42,8 @@ public class QuizMaker {
 		}
 	}
 	
-	public static void askAQuestion (Question quizQuestion) {
+	public static boolean askAQuestion (Question quizQuestion) {
+		boolean isCorrect = false;
 		Scanner userAnswers = new Scanner (System.in);
 		String[] quizArr = quizQuestion.getQuizChoices();
 		int choiceNum = 1;
@@ -59,9 +60,9 @@ public class QuizMaker {
 				askAQuestion (quizQuestion);
 			}
 			else {
-				boolean rightAnswer = true;
 				System.out.println("Your answer: " + quizArr[selection-1]);
 				if (quizArr[selection-1].equalsIgnoreCase(quizQuestion.getQuizAnswer())) {
+					isCorrect = true;
 					System.out.println("Great Job!\n\nNext Question...\n");
 				}
 				else System.out.println("Sorry, that is incorrect!\n\nNext Question...\n");
@@ -71,17 +72,22 @@ public class QuizMaker {
 			System.err.println("Selection must be a number! Please enter a number (1-4) to indicate your selection:");
 			askAQuestion (quizQuestion);
 		}
+			return isCorrect;
 	}
-	
+
 	public static void runQuiz (File file) {
-		int score = 0;
 		try (Scanner quizInput = new Scanner (file)) {
 			Question quizQuestion;
+			int score = 0;
+			int totalQuestions = 0;
 			while (quizInput.hasNextLine()) {
 				String line = quizInput.nextLine();
-				quizQuestion = new Question (file, getLineAsList(file, line));
-				askAQuestion(quizQuestion);
+				List<String>lineList = getLineAsList(file, line);
+				quizQuestion = new Question (file, lineList);
+				if (askAQuestion(quizQuestion)) score++; // this seems messy and error-prone
+				totalQuestions++;
 			}
+			System.out.println("Quiz complete! Here is your score: " + score + " out of " + totalQuestions);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
