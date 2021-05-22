@@ -63,9 +63,9 @@ public class QuizMaker {
 				System.out.println("Your answer: " + quizArr[selection-1]);
 				if (quizArr[selection-1].equalsIgnoreCase(quizQuestion.getQuizAnswer())) {
 					isCorrect = true;
-					System.out.println("Great Job!\n\nNext Question...\n");
+					System.out.println("Great Job!");
 				}
-				else System.out.println("Sorry, that is incorrect!\n\nNext Question...\n");
+				else System.out.println("Sorry, that is incorrect!");
 			}
 		}
 		catch (InputMismatchException e) {
@@ -86,8 +86,13 @@ public class QuizMaker {
 				quizQuestion = new Question (file, lineList);
 				if (askAQuestion(quizQuestion)) score++; // this seems messy and error-prone
 				totalQuestions++;
+				if (quizInput.hasNextLine()) System.out.println("\n\nNext Question...\n");
+				else System.out.println("\n\nQuiz complete!\n");
 			}
-			System.out.println("Quiz complete! Here is your score: " + score + " out of " + totalQuestions);
+			System.out.println("\nHere is your score: " + score + " out of " + totalQuestions);
+			if (score > 5) System.out.println("Nice! You know your stuff!");
+			else if (score > 3) System.out.println("You had an average score. Try to beat it next time!");
+			else System.out.println("Oh wow, this is a low score. Maybe study more next time.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
