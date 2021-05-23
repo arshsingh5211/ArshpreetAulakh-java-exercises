@@ -2,7 +2,6 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class WordCount {
@@ -10,27 +9,11 @@ public class WordCount {
 	public static void main(String[] args) {
 		Scanner console = new Scanner (System.in);
 		File fileToRead = validateFile(console);
-		System.out.println(fileToRead.getAbsolutePath());
-		try (Scanner fileReader = new Scanner(fileToRead)) {
-			int wordCount = 0;
-			String line;
-			int lineNum = 1; //for testing purposes only
-			while (fileReader.hasNextLine()) {
-				String[] wordsInLine;
-				line = fileReader.nextLine();
-				if (line.isEmpty() || line == null) wordsInLine = new String[] {};
-				else wordsInLine = line.trim().replaceAll("\n", "").split("\\s+");
-				System.out.println(lineNum + ") " + Arrays.toString(wordsInLine));
-				wordCount += wordsInLine.length;
-				System.out.println(lineNum + ") " + wordCount);
-				lineNum++;
-			}
-			//System.out.println("Word Count: " + wordCount);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		wordAndSentenceCounter(fileToRead);
 	}
+	
+	// is it better to put these in static methods or put them all in main method
+	// this way seems more readable to me but does it impact performance (to a non-negligible degree)
 	
 	private static File validateFile (Scanner console) {
 		File file = null;
@@ -45,5 +28,26 @@ public class WordCount {
 		}
 		return file;
 	}
-
+	
+	private static void wordAndSentenceCounter(File fileToRead) {
+		int wordCount = 0;
+		int sentenceCount = 0;
+		try (Scanner fileReader = new Scanner(fileToRead)) {
+			String line;
+			while (fileReader.hasNextLine()) {
+				line = fileReader.nextLine();
+				if (!line.isEmpty()) {
+					String [] words = line.trim().split("\\s+");
+					wordCount += words.length;
+					for (String word : words) {
+						if (word.endsWith(".") || word.endsWith("?") || word.endsWith("!")) sentenceCount++; // edge cases?? (Mr. Smith, www.website.com, so excited!!!)
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Word Count: " + wordCount);
+		System.out.println("Sentence Count: " + sentenceCount);
+	}
 }
