@@ -30,13 +30,12 @@ public class QuizWriter { // wanted to try the quizmaker exercise again where i 
 			String [] choicesArr;
 			String correctAns;
 			int score = 0;
+			System.out.println("\n\nLet's get started...\n");
 			for (QuizQuestion question: questionsList) {
 				correctAns = question.getCorrectAnswer();
 				choicesArr = question.getQuestionArr();
 				boolean keepGoing = true;
 				while (keepGoing) {
-					if (questionsList.get(0).equals(question)) System.out.println("\n\nLet's get started...\n\n");
-					else System.out.println("\n\nNext Question...\n");
 					System.out.println("\n" + question.askQuestion());
 					System.out.println(question.getChoices());
 					selection = console.nextInt();
@@ -53,8 +52,12 @@ public class QuizWriter { // wanted to try the quizmaker exercise again where i 
 					else System.out.println("Invalid choice!");
 				}
 				if (questionsList.get(questionsList.size()-1).equals(question)) System.out.println("\n\nQuiz complete!");
+				else System.out.println("\n\nNext Question...\n");
 			}
-			System.out.println("\n\n\nYou scored " + score + "/" + questionsList.size());
+			System.out.println("\n\nYou scored " + score + "/" + questionsList.size());
+			if (score > 5) System.out.println("Nice! You know your stuff!");
+			else if (score > 3) System.out.println("Eh, you did fine. Try to be better next time!");
+			else System.out.println("Whoops, this is quite a low score. Maybe study more next time.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

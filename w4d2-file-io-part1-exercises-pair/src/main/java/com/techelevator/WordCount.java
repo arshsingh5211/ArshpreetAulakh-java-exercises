@@ -37,7 +37,7 @@ public class WordCount {
 			while (fileReader.hasNextLine()) {
 				line = fileReader.nextLine();
 				if (!line.isEmpty()) {
-					String [] words = line.trim().split("\\s+");
+					String [] words = line.trim().split("\\s+"); // does not account for edge cases but this is final number in pdf that they want
 					wordCount += words.length;
 					for (String word : words) {
 						if (word.endsWith(".") || word.endsWith("?") || word.endsWith("!")) sentenceCount++; // edge cases?? (Mr. Smith, www.website.com, so excited!!!)

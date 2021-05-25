@@ -1,7 +1,5 @@
 package com.techelevator.QuizMe;
 
-import java.util.Arrays;
-
 public class QuizQuestion {
 	private String[] lineArr;
 	
