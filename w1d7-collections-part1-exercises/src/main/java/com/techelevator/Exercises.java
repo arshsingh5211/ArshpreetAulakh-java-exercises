@@ -96,9 +96,7 @@ public class Exercises {
 	public Integer findLargest(List<Integer> integerList) {
 		int largest = 0;
 		for (Integer i: integerList) {
-			if (i > largest) {
-				largest = i;
-			}
+			if (i > largest) largest = i;
 		}
 				return largest;
 	}
@@ -130,12 +128,10 @@ public class Exercises {
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) {
 		int count = 0;
-		for (int i = 0; i < integerList.size(); i++) {
-			if (integerList.get(i) == intToFind) {
-				count++;
-			}
+		for (int num : integerList) {
+			if (num == intToFind) count++;
 		}
-				return count > 1;
+		return count > 1;
 	}
 	
 	// or Collections.frequency(integerList, intToFind) > 1;
@@ -210,22 +206,23 @@ public class Exercises {
 	 boardingGate( [0, -1, 44, 31, 17, 7, 27, 16, 26, 6] ) -> [7, 6, 17, 16, 27, 26]
 	 */
 	public List<Integer> boardingGate(List<Integer> seatNumberList) {
-		Queue<Integer> firstClass = new LinkedList<>(); // 1-10
-		Queue<Integer> secondClass = new LinkedList<>(); // 11-20
-		Queue<Integer> thirdClass = new LinkedList<>(); // 21-30
+		List<Integer> flightList = new ArrayList<>();
+		Queue<Integer> firstClass = new LinkedList<>();
+		Queue<Integer> secondClass = new LinkedList<>();
+		Queue<Integer> thirdClass = new LinkedList<>();
 		
-		for (Integer seat: seatNumberList) {
-			if (seat > 0 && seat < 11) firstClass.add(seat);
-			else if (seat > 10 && seat < 21) secondClass.add(seat);
-			else if (seat > 20 && seat < 31) thirdClass.add(seat);
+		for (Integer seat : seatNumberList) {
+			if (seat > 0 && seat < 31) {
+				if (seat < 11) firstClass.add(seat);
+				else if (seat < 21) secondClass.add(seat);
+				else thirdClass.add(seat);
+			}
 		}
+		flightList.addAll(firstClass);
+		flightList.addAll(secondClass);
+		flightList.addAll(thirdClass);
 		
-		List<Integer> finalList = new ArrayList<>();
-		finalList.addAll(firstClass);
-		finalList.addAll(secondClass);
-		finalList.addAll(thirdClass);
-		
-		return finalList;
+		return flightList;
 	}
 
 }
