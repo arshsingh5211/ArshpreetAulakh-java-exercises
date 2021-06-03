@@ -50,10 +50,7 @@ public class Exercises {
 		animalToGroup.put("dog", "Pack");
 		animalToGroup.put("crocodile", "Float");
 		
-		if (animalToGroup.containsKey(animalName.toLowerCase())) {
-			return animalToGroup.get(animalName.toLowerCase());
-		}
-		else return "unknown";
+		return animalToGroup.getOrDefault(animalName.toLowerCase(),"unknown");
 	}
 
 	/*
@@ -79,15 +76,15 @@ public class Exercises {
 	 * 
 	 */
 	public Double isItOnSale(String itemNumber) {
-		HashMap<String, Double> itemDiscount = new HashMap <String, Double>();
-		 itemDiscount.put("kitchen4001", 0.20);
-		 itemDiscount.put("garage1070", 0.15);
-		 itemDiscount.put("livingroom", 0.10);
-		 itemDiscount.put("kitchen6073", 0.40);
-		 itemDiscount.put("bedroom3434", 0.60);
-		 itemDiscount.put("bath0073", 0.15);
-		 
-		 return itemDiscount.containsKey(itemNumber.toLowerCase()) ? itemDiscount.get(itemNumber.toLowerCase()) : 0.00;
+        HashMap<String, Double> itemDiscount = new HashMap <String, Double>();
+        itemDiscount.put("kitchen4001", 0.20);
+        itemDiscount.put("garage1070", 0.15);
+        itemDiscount.put("livingroom", 0.10);
+        itemDiscount.put("kitchen6073", 0.40);
+        itemDiscount.put("bedroom3434", 0.60);
+        itemDiscount.put("bath0073", 0.15);
+        
+        return itemDiscount.getOrDefault(itemNumber.toLowerCase(), 0.00);
 	}
 	
 	/*
@@ -123,20 +120,15 @@ public class Exercises {
 	 * 
 	 */
 	public Map<String, Integer> peterPaulPartnership(Map<String, Integer> peterPaul) {
-		Integer valPeter = peterPaul.get("Peter");
-		Integer valPaul = peterPaul.get("Paul");
-		peterPaul.put("PeterPaulPartnership", 0);
-		Integer valPartner = peterPaul.get("PeterPaulPartnership");
-		int total = valPeter + valPaul;
-		
+		int valPeter = peterPaul.get("Peter");
+		int valPaul = peterPaul.get("Paul");
+
 		if (valPeter >= 5000 && valPaul >= 10000) {
-			valPeter = (int)(0.75 * valPeter);
-			valPaul = (int)(0.75 * valPaul);
-			valPartner = (int)(.25 * total);
+			peterPaul.put("Peter", (int)(valPeter * 0.75));
+			peterPaul.put("Paul", (int) (valPaul * 0.75));
+			peterPaul.put("PeterPaulPartnership", (int)((valPeter * 0.25) + (valPaul * 0.25)));
 		}
-		peterPaul.put("Peter", valPeter);
-		peterPaul.put("Paul", valPaul);
-		peterPaul.put("PeterPaulPartnership", valPartner);
+
 		return peterPaul;
 	}
 	
@@ -149,11 +141,11 @@ public class Exercises {
 	 * beginningAndEnding(["muddy", "good", "moat", "good", "night"]) → {"g": "d", "m": "t", "n": "t"}
 	 */
 	public Map<String, String> beginningAndEnding(String[] words) {
-		Map<String, String> map = new HashMap<>();
-		for (String item: words) {
-			map.put(item.substring(0,1), item.substring(item.length()-1));
-		}
-		return map;
+        Map<String, String> wordCharMap = new HashMap<>();
+        for (String word : words) {
+            wordCharMap.put(word.substring(0,1), word.substring(word.length()-1));
+        }
+        return wordCharMap;
 	}
 	
 	/*
@@ -169,12 +161,11 @@ public class Exercises {
 	 */
 	public Map<String, Integer> wordCount(String[] words) {
 		Map<String, Integer> map = new HashMap<>();
-		List<String> list = Arrays.asList(words);
-		for (String item: list) {
-			int count = Collections.frequency(list, item);
-			map.put(item, count);
+		for (String word : words) {
+			if (!map.containsKey(word)) map.put(word, 1);
+			else map.put(word, map.get(word) + 1);
 		}
-					return map;
+			return map;
 	}
 	
 	/*
@@ -207,13 +198,12 @@ public class Exercises {
 	 * 
 	 */
 	public Map<String, Boolean> wordMultiple(String[] words) {
-		Map<String, Boolean> map = new HashMap<>();
-		for (String word : words) {
-			if (map.containsKey(word)) map.put(word, true); // don't need to track actual frequency so this is easier
-			else map.put(word, false);
-		}
-		
-		return map;
+        Map<String, Boolean> wordTwice = new HashMap<>();
+        for (String word : words) {
+            if (wordTwice.containsKey(word)) wordTwice.put(word, true);
+            else wordTwice.put(word, false);
+        }
+        return wordTwice;
 	}
 	
 	/*
@@ -234,20 +224,6 @@ public class Exercises {
 			return mainWarehouse;
 	}
 	
-	// first used entrySet but realized I don't need to iterate through values
-	
-	/*
-	 public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse, Map<String, Integer> remoteWarehouse) {
-		for (Map.Entry<String, Integer> entry: remoteWarehouse.entrySet()) {
-			if (mainWarehouse.containsKey(entry.getKey())) {
-				mainWarehouse.put(entry.getKey(), mainWarehouse.get(entry.getKey()) + entry.getValue());
-			}
-			else mainWarehouse.put(entry.getKey(), entry.getValue());		
-		}
-			return mainWarehouse;
-	}
-	 */
-	
 	/*
 	 * Just when you thought it was safe to get back in the water --- last2Revisited!!!!
 	 * 
@@ -265,16 +241,17 @@ public class Exercises {
 	 */
 	public Map<String, Integer> last2Revisted(String[] words) {
 		Map<String, Integer> map = new HashMap<>();
-		for (String item: words) {
+		for (String word : words) {
 			int count = 0;
-			String last2 = item.substring(item.length()-2);
-			for (int i = 0; i < item.length()-2; i++) {
-				if (item.substring(i, i + 2).equals(last2)) count++;
+			String end = word.substring(word.length()-2);
+			for (int i = 0; i < word.length()-2; i++) {
+				if (word.substring(i, i+2).equals(end)) count++;
 			}
-			map.put(item, count);
+			map.put(word, count);
 		}
-			return map;
+		return map;
 	}
 	
 	// is there a way to do this with linear complexity
+	// bad form to declare variables inside a loop? or is it best to limit scope of variables
 }

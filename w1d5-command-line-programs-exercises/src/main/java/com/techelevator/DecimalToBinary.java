@@ -38,10 +38,10 @@ public class DecimalToBinary {
 			myStack.push(num % 2);
 			num /= 2;
 		}
-		for (Integer item: myStack) {
-			sb.append(item);
+		while (!myStack.isEmpty()) {
+			sb.append(myStack.pop());
 		}
-			return sb.reverse().toString();
+			return sb.toString();
 	}
 
 }

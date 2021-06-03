@@ -145,6 +145,9 @@ public class ExercisesTest {
 		assertEquals("Input: sum13(new int[]{1, 2, 2, 1})", 6, exercises.sum13(new int[]{1, 2, 2, 1}));
 		assertEquals("Input: sum13(new int[]{1, 1})", 2, exercises.sum13(new int[]{1, 1}));
 		assertEquals("Input: sum13(new int[]{1, 2, 2, 1, 13})", 6, exercises.sum13(new int[]{1, 2, 2, 1, 13}));
+		assertEquals("Input: sum13(new int[]{1, 13, 13, 1, 8})", 9, exercises.sum13(new int[]{1, 13, 13, 1, 8}));
+		assertEquals("Input: sum13(new int[]{})", 0, exercises.sum13(new int[]{}));
+		assertEquals("Input: sum13(new int[]{13, 13, 3})", 0, exercises.sum13(new int[]{13, 13, 3}));
 	}
 
 	/*
@@ -169,6 +172,7 @@ public class ExercisesTest {
 		assertEquals("Input: lucky13(new int[]{0, 2, 4})", true, exercises.lucky13(new int[]{0, 2, 4}));
 		assertEquals("Input: lucky13(new int[]{1, 2, 3})", false, exercises.lucky13(new int[]{1, 2, 3}));
 		assertEquals("Input: lucky13(new int[]{1, 2, 4})", false, exercises.lucky13(new int[]{1, 2, 4}));
+		assertEquals("Input: lucky13(new int[]{-3, 0, 3})", false, exercises.lucky13(new int[]{-3, 0, 3})); //added to fill branch
 	}
 
 	/*

@@ -220,7 +220,6 @@ public class Exercises {
 		if (temp < 60) return false;
 		return isSummer ? temp <= 100 : temp <= 90;
 	}
-	// 		return ((temp >= 60 && temp <= 90) || (temp >= 60 && temp <= 100 && isSummer));
 
 	/*
 	 19. You are driving a little too fast, and a police officer stops you. Write code to compute the result, 
@@ -232,12 +231,9 @@ public class Exercises {
 	 caughtSpeeding(85, true) → 1
 	 */
 	public int caughtSpeeding(int speed, boolean isBirthday) {
-		if (isBirthday) {
-			speed -= 5;
-		}
-		if (speed > 80) return 2;
-		else if (speed > 60) return 1;
-		else return 0;
+		if (isBirthday) speed -= 5;
+		if (speed < 61) return 0;
+		return speed < 81 ? 1 : 2;
 	}
 	
 	/*
@@ -384,13 +380,6 @@ public class Exercises {
 	public boolean twoAsOne(int a, int b, int c) {
 		return a + b == c || b + c == a || a + c == b;
 	}
-
-	// thought about using 
-	// a + b + c = sum 6
-	// largest = Math.max(a, b), c) 
-	// if smallest + 2ndSmallest = largest return true;
-	// but problem is, what if there are negative numbers -- twoAsOne(-3, 2, -1) would return false when it should be true
-	// so just used obvious solution
 	
 	/*
 	 32. Given three ints, a b c, return true if b is greater than a, and c is greater than b. However, with 

@@ -21,7 +21,7 @@ public class MiddleWayClass {
 			int mid = arr.length/2;
 			return arr[mid];
 		}
-	}
+	} 
 	    
 	public int[] getMiddleArray (List<int[]> listArr) {
 		int [] midArr = new int[listArr.size()];

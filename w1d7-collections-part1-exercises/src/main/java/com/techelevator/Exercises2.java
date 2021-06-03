@@ -1,15 +1,9 @@
 package com.techelevator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
 
-public class Exercises {
+public class Exercises2 {
 
 	/*
 	 Note, for-each is preferred, and should be used when possible.
@@ -22,12 +16,7 @@ public class Exercises {
 	 array2List( {"Left", "Right", "Forward", "Back"} )  ->  ["Left", "Right", "Forward", "Back"] 
 	 */
 	public List<String> array2List(String[] stringArray) {
-		List<String> stringList = new ArrayList<>();
-		for (String item: stringArray) stringList.add(item);
-		return stringList;
-	}
-	
-	// normally I would just do Arrays.asList(stringArray) but doing it manually is good practice
+    }
 	
 	/*
 	 Given a list of Strings, return an array containing the same Strings in the same order 
@@ -36,11 +25,6 @@ public class Exercises {
 	 list2Array( ["Left", "Right", "Forward", "Back"] )  ->  {"Left", "Right", "Forward", "Back"}
 	 */
 	public String[] list2Array(List<String> stringList) {
-		String [] arr = new String[stringList.size()];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = stringList.get(i);
-		}
-			return arr;
 	}
 	/*
 	 Given an array of Strings, return an ArrayList containing the same Strings in the same order 
@@ -50,29 +34,19 @@ public class Exercises {
 	 no4LetterWords( {"Jack", "Jill", "Jane", "John", "Jim"} )  ->  ["Jim"]
 	 */
 	public List<String> no4LetterWords(String[] stringArray) {
-		List<String> stringList = new ArrayList<>();
-		for (String item: stringArray) {
-			if (item.length() != 4) stringList.add(item);
-		}
-		return stringList;
 	}
 
 
 	/*
 	 Given a List of Strings, return a new list in reverse order of the original. One obvious solution is to
 	 simply loop through the original list in reverse order, but see if you can come up with an alternative
-	 solution. (Hint: Think LIFO (i.e. stack))
+	 solution.
 	 reverseList( ["purple", "green", "blue", "yellow", "green" ])  -> ["green", "yellow", "blue", "green", "purple" ]
 	 reverseList( ["jingle", "bells", "jingle", "bells", "jingle", "all", "the", "way"} )
 		-> ["way", "the", "all", "jingle", "bells", "jingle", "bells", "jingle"]
 	 */
 	public List<String> reverseList(List<String> stringList) {
-		Stack<String> stack = new Stack<>();
-		List<String> reverseList = new ArrayList<>();
-		stack.addAll(stringList);
-		
-		while (!stack.isEmpty()) reverseList.add(stack.pop());
-		return reverseList;
+
 	}
 
 	/*
@@ -82,9 +56,7 @@ public class Exercises {
 	 arrayInt2ListDouble( {84, 99, 3285, 13, 877} ) -> [42, 49.5, 1642.5, 6.5, 438.5]
 	 */
 	public List<Double> arrayInt2ListDouble(int[] intArray) {
-		ArrayList<Double> doubleList = new ArrayList<>();
-		for (int num: intArray) doubleList.add(num/2.0);
-		return doubleList;
+
 	}
 	
 	/*
@@ -94,15 +66,7 @@ public class Exercises {
 	 findLargest( [34070, 1380, 81238, 7782, 234, 64362, 627] ) -> 64362
 	 */
 	public Integer findLargest(List<Integer> integerList) {
-		int largest = 0;
-		for (Integer num : integerList) {
-			if (num > largest) largest = num;
-		}
-		return largest;
-		// return Collections.max(integerList); would work as well
-		// This method iterates over the entire collection, hence it requires time proportional to the size of the collection.
-		// so it just iterates implicitly instead of explicitly like my loop above?
-		// "Fastest sorting algorithms work in O(n*log(n)), so linear scan (loop) is the fastest option there is." (SO)
+
 	}
 	
 	/*
@@ -112,11 +76,7 @@ public class Exercises {
 	 oddOnly( {734, 233, 782, 811, 3, 9999} ) -> [233, 811, 3, 9999]  
 	 */
 	public List<Integer> oddOnly(Integer[] integerArray) {
-		List<Integer> oddList = new ArrayList<>();
-		for (Integer num: integerArray) {
-			if (num % 2 != 0) oddList.add(num);
-		}
-		return oddList;
+
 	}
 	
 	/* 
@@ -127,12 +87,6 @@ public class Exercises {
 	 foundIntTwice( [9, 23, 44, 2, 88, 44], 44) -> true
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) {
-		int count = 0;
-		for (int num : integerList) {
-			if (num == intToFind) count++;
-			if (count == 2) return true; // this way if intToFind shows up more than twice it won't keep going through loop
-		}
-		return false;
 	}
 	
 	// or Collections.frequency(integerList, intToFind) > 1;
@@ -150,14 +104,6 @@ public class Exercises {
 	 HINT: To convert an integer x to a string you can call x.toString() in your code (e.g. if x = 1 then x.ToString() equals "1")
 	 */
 	public List<String> fizzBuzzList(Integer[] integerArray) {
-		List<String> list = new ArrayList<>();
-		for (Integer num: integerArray) {
-			if (num % 5 == 0 && num % 3 == 0) list.add("FizzBuzz");
-			else if (num % 5 == 0) list.add("Buzz");
-			else if (num % 3 == 0) list.add("Fizz");
-			else list.add(num.toString());
-		}
-			return list;
 	}
 
 	/*
@@ -167,11 +113,6 @@ public class Exercises {
 	 distinctValues( ["jingle", "bells", "jingle", "bells", "jingle", "all", "the", "way"] ) -> ["jingle", "bells", "all", "the", "way"]
 	 */
 	public List<String> distinctValues(List<String> stringList) {
-		Set<String> set = new HashSet<>();
-		set.addAll(stringList);
-		List<String> list = new ArrayList<String>();
-		list.addAll(set);
-		return list;
 	}
 
 	/*
@@ -182,15 +123,7 @@ public class Exercises {
 	 interleaveLists( [7, 1, 3], [2, 5, 7, 9] )  ->  [7, 2, 1, 5, 3, 7, 9]
 	 */
 	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo) {
-		int len = Math.min(listOne.size(), listTwo.size());
-		List<Integer> finalList = new ArrayList<>();
-		for (int i = 0; i < len; i++) {
-			finalList.add(listOne.get(i));
-			finalList.add(listTwo.get(i));
-		}
-		finalList.addAll(listTwo.subList(len, listTwo.size()));
-		finalList.addAll(listOne.subList(len, listOne.size()));
-		return finalList;
+        
 	}
 
 	/*
@@ -203,26 +136,6 @@ public class Exercises {
 	 boardingGate( [0, -1, 44, 31, 17, 7, 27, 16, 26, 6] ) -> [7, 6, 17, 16, 27, 26]
 	 */
 	public List<Integer> boardingGate(List<Integer> seatNumberList) {
-		List<Integer> flightList = new ArrayList<>();
-		Queue<Integer> firstClass = new LinkedList<>();
-		Queue<Integer> secondClass = new LinkedList<>();
-		Queue<Integer> thirdClass = new LinkedList<>();
-		
-		for (Integer seat : seatNumberList) {
-			if (seat > 0 && seat < 31) {
-				if (seat < 11) firstClass.add(seat);
-				else if (seat < 21) secondClass.add(seat);
-				else thirdClass.add(seat);
-			}
-		}
-		flightList.addAll(firstClass);
-		flightList.addAll(secondClass);
-		flightList.addAll(thirdClass);
-		
-		return flightList;
 	}
-	
-			// since we don't actually take items out of the queue one at a time, 
-			// what is the point of using a queue instead of other collection
 
 }

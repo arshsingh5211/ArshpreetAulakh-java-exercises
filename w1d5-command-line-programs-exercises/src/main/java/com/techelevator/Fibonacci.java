@@ -21,23 +21,36 @@ Please enter the Fibonacci number: 25
 public class Fibonacci {
 
 	public static void main(String[] args) {
-		
 		Scanner console = new Scanner (System.in);
 		System.out.print("Please enter the Fibonacci number: ");
 		int end = console.nextInt();
+		int previous = 0;
+		int next = 1;
+		int sum = 1;
+		String fib = "0, " + sum;
+		while (sum < end) {
+			fib += ", " + sum;
+			previous = next;
+			next = sum;
+			sum = previous + next;
+		}
+		
+		System.out.println(fib);
 		System.out.println(getList(end).toString().replace("[", "").replace("]", ""));
+		// which way is better
+		// list is more simple and logical
 	}
 	
-	static List<Integer> getList(int endInt) {
+	public static List<Integer> getList(int end) {
 		List<Integer> fibList = new ArrayList<>();
 		fibList.add(0);
 		fibList.add(1);
-		int next = fibList.get(fibList.size()-1) + fibList.get(fibList.size()-2);
-		while (next < endInt) {
+		int next = 1;
+		while (next < end) {
 			fibList.add(next);
 			next = fibList.get(fibList.size()-1) + fibList.get(fibList.size()-2);
 		}
 		return fibList;
 	}
-
 }
+

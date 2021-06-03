@@ -1,7 +1,8 @@
 package com.techelevator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 public class Exercises {
@@ -61,7 +62,7 @@ public class Exercises {
 			return sum;
 	}
 	
-	// could just do nums[0] + nums[1] + nums[2] but this way it is able to handle different sized arrays
+					// could just do nums[0] + nums[1] + nums[2] but this way it is able to handle different sized arrays
 
 	/*
 	 6. Given an array of ints length 3, return an array with the elements "rotated left" so {1, 2, 3} 
@@ -73,14 +74,21 @@ public class Exercises {
 	public int[] rotateLeft3(int[] nums) {
 		int[] arr = new int[nums.length];
 		arr[arr.length-1] = nums[0];
-		for (int i = 1; i < nums.length; i++) {
-			arr[i-1] = nums[i];
-		}
-			return arr;
+		for (int i = 1; i < nums.length; i++) arr[i-1] = nums[i];
+		return arr;
+	}
+	/*
+	*** wanted to see if i can modify existing array to rotate left, is it better to modify old or create new array?? ***
+	
+	public int[] rotateLeft3(int[] nums) {
+        int first = nums[0];
+        for (int i = 0; i < nums.length-1; i++) nums[i] = nums[i + 1];
+        nums[nums.length-1] = first;
+        return nums;
 	}
 	
-	// once again just trying to handle arrays of any size instead of just size 3
-
+	*/
+	
 	/*
 	 7. Given an array of ints length 3, return a new array with the elements in reverse order, so 
 	 {1, 2, 3} becomes {3, 2, 1}.
@@ -96,6 +104,9 @@ public class Exercises {
     	}
     		return arr;
 	}
+	
+			// iterating in reverse is obvious solution (int i = nums.length; i >= 0; i--)
+			// could also use a stack but this is easier so I don't have to change from primitive to object for each element
 
 	/*
 	 8. Given an array of ints length 3, figure out which is larger between the first and last elements 
@@ -105,12 +116,16 @@ public class Exercises {
 	 maxEnd3([2, 11, 3]) → [3, 3, 3]
 	 */
 	public int[] maxEnd3(int[] nums) {
-		int largest = Math.max(nums[0], nums[nums.length-1]);
+		int largest = nums[0] > nums[nums.length-1] ? nums[0] : nums[nums.length-1];
 		for (int i = 0; i < nums.length; i++) {
 			nums[i] = largest;
 		}
 			return nums;
 	}
+	
+				// would normally use Math.max(...) but for practice I can avoid built-in methods
+				// why does a for-each loop not work here? why does it have to be for loop
+				// int num : nums just assigns largest to local variable num and doesn't change actual array
  
 	/*
 	 9. Given an array of ints, return the sum of the first 2 elements in the array. If the array length
@@ -142,20 +157,17 @@ public class Exercises {
     // (see middlewayclass)
     
 	/*
-	 11. Return the number of even ints in the given array. Note: the % "mod" operator computes the 
-	 remainder, e.g. 5 % 2 is 1.
+	 11. Return the number of even ints in the given array.
 	 countEvens([2, 1, 2, 3, 4]) → 3
 	 countEvens([2, 2, 0]) → 3
 	 countEvens([1, 3, 5]) → 0
 	 */
 	public int countEvens(int[] nums) {
 		int evens = 0;
-		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] % 2 == 0) {
-				evens++;
-			}
+		for (Integer num: nums) {
+			if (num % 2 == 0) evens++;
 		}
-				return evens;
+			return evens;
 	}
 
 	/*
@@ -165,14 +177,13 @@ public class Exercises {
 	 sum13([1, 2, 2, 1]) → 6
 	 sum13([1, 1]) → 2
 	 sum13([1, 2, 2, 1, 13]) → 6
+	 sum13([1, 13, 13, 1, 13]) → 1
 	 */
 	public int sum13(int[] nums) {
 		int sum = 0;
-		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] != 13) {
-				sum += nums[i];
-			}
-			else break;
+		if (nums.length > 0 && nums[0] != 13) sum += nums[0];
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i] != 13 && nums[i-1] != 13) sum += nums[i]; // if array has two 13s in a row this ignores the next num
 		}
 		return sum;
 	}
@@ -185,13 +196,11 @@ public class Exercises {
 	 */
 	public boolean has22(int[] nums) {
 		for (int i = 0; i < nums.length-1; i++) {
-			if (nums[i] == 2 && nums[i+1] == 2) {
-				return true;
-			}
+			if (nums[i] == 2 && nums[i+1] == 2) return true;
 		}
-				return false;
+			return false;
 	}
-	
+	 
 	/*
 	 14. Given an array of ints, return true if the array contains no 1's and no 3's.
 	 lucky13([0, 2, 4]) → true
@@ -199,14 +208,12 @@ public class Exercises {
 	 lucky13([1, 2, 4]) → false
 	 */
 	public boolean lucky13(int[] nums) {
-		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] == 1 || nums[i] == 3) {
-				return false;
-			}
+		for (int num : nums) {
+			if (num == 1 || num == 3) return false;
 		}
-				return true;
+		return true;
 	}
-
+	
 	/*
 	 15. Given an array of ints, return true if the sum of all the 2's in the array is exactly 8.
 	 sum28([2, 3, 2, 2, 4, 2]) → true
@@ -214,13 +221,10 @@ public class Exercises {
 	 sum28([1, 2, 3, 4]) → false
 	 */
 	public boolean sum28(int[] nums) {
-		int freq = 0;
-		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] == 2) {
-				freq++;
-			}
+		int countOf2s = 0;
+		for (int num : nums) {
+			if (num == 2) countOf2s++;
 		}
-		return freq == 4;
+		return countOf2s == 4;
 	}
-
 }
