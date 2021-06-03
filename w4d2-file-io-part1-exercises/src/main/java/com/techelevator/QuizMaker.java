@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class QuizMaker {
 	public static void main (String args[]) {
 		Scanner console = new Scanner (System.in);
-		System.out.println("Please enter the path of the text file to search: ");
+		System.out.println("Please enter the path of the text file: ");
 		File file = getFile(console);
 		runQuiz(file);
 	}
